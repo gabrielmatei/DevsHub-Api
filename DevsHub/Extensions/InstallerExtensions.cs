@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DevsHub.Installers;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 
-namespace DevsHub.Installers
+namespace DevsHub.Extensions
 {
     public static class InstallerExtensions
     {

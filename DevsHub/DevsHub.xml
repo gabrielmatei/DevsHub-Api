@@ -4,5 +4,11 @@
         <name>DevsHub</name>
     </assembly>
     <members>
+        <member name="M:DevsHub.Controllers.V1.ValuesController.GetAll">
+            <summary>
+            Returns all values
+            </summary>
+            <response code="200">Returns all values</response>
+        </member>
     </members>
 </doc>

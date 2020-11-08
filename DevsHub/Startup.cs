@@ -1,4 +1,4 @@
-using DevsHub.Installers;
+using DevsHub.Extensions;
 using DevsHub.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,6 +42,7 @@ namespace DevsHub
             {
                 option.RouteTemplate = swaggerOptions.JsonRoute;
             });
+
             app.UseSwaggerUI(option =>
             {
                 option.SwaggerEndpoint(swaggerOptions.UiEndpoint, swaggerOptions.Description);
