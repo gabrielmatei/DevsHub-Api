@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace DevsHub.Controllers.V1
 {
     [ApiController]
+    [Produces("application/json")]
     public class ValuesController : ControllerBase
     {
         private readonly IValueService _valueService;

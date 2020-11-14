@@ -16,6 +16,7 @@ namespace DevsHub.Installers
             });
 
             services.AddScoped<IValueService, ValueService>();
+            services.AddScoped<IAccountService, AccountService>();
         }
     }
 }

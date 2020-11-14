@@ -33,6 +33,7 @@ namespace DevsHub
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             var swaggerOptions = new SwaggerOptions();

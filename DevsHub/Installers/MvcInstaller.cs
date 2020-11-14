@@ -1,6 +1,5 @@
 ﻿using DevsHub.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -14,12 +13,10 @@ namespace DevsHub.Installers
         {
             var jwtSettings = new JwtSettings();
             configuration.Bind(nameof(jwtSettings), jwtSettings);
+
             services.AddSingleton(jwtSettings);
 
-            services.AddMvc(options =>
-            {
-                options.EnableEndpointRouting = false;
-            }).SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.AddControllers();
 
             var tokenValidatonParameters = new TokenValidationParameters
             {

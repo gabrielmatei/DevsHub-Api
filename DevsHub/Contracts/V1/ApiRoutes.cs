@@ -15,5 +15,12 @@
             public const string Update = Base + "/values/{id}";
             public const string Delete = Base + "/values/{id}";
         }
+
+        public static class Account
+        {
+            public const string Register = Base + "/account/register";
+            public const string Login = Base + "/account/login";
+            public const string Get = Base + "/account";
+        }
     }
 }
