@@ -22,5 +22,14 @@
             public const string Login = Base + "/account/login";
             public const string Get = Base + "/account";
         }
+
+        public static class Users
+        {
+            public const string GetAll = Base + "/users";
+            public const string Get = Base + "/users/{id}";
+            public const string Create = Base + "/users";
+            public const string Update = Base + "/users/{id}";
+            public const string Delete = Base + "/users/{id}";
+        }
     }
 }

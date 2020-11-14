@@ -33,7 +33,7 @@ namespace DevsHub.Controllers.V1
 
         [HttpGet(ApiRoutes.Values.Get)]
         [ProducesResponseType(typeof(Value), 200)]
-        public async Task<IActionResult> GetAll([FromRoute] Guid id)
+        public async Task<IActionResult> Get([FromRoute] Guid id)
         {
             var value = await _valueService.GetValueByIdAsync(id);
             if (value == null)
