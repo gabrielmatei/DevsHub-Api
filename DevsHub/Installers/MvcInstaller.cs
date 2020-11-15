@@ -1,5 +1,8 @@
-﻿using DevsHub.Options;
+﻿using DevsHub.Filters;
+using DevsHub.Options;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +19,16 @@ namespace DevsHub.Installers
 
             services.AddSingleton(jwtSettings);
 
-            services.AddControllers();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<ValidationFilter>();
+            })
+            .AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             var tokenValidatonParameters = new TokenValidationParameters
             {
