@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace DevsHub.Contracts.V1.Responses
+{
+    public class UserResponse
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+    }
+
+    public class UserListResponse
+    {
+        public int Count { get; set; }
+        public List<UserResponse> Users { get; set; }
+    }
+}

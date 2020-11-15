@@ -1,3 +1,4 @@
+using AutoMapper;
 using DevsHub.Extensions;
 using DevsHub.Options;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +21,7 @@ namespace DevsHub
         public void ConfigureServices(IServiceCollection services)
         {
             services.InstallServicesInAssembly(Configuration);
+            services.AddAutoMapper(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

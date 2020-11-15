@@ -1,4 +1,5 @@
-﻿using DevsHub.Contracts.V1.Requests;
+﻿using AutoMapper;
+using DevsHub.Contracts.V1.Requests;
 using DevsHub.Data;
 using DevsHub.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +21,12 @@ namespace DevsHub.Services
     public class UsersService : IUsersService
     {
         private readonly DataContext _dataContext;
+        private readonly IMapper _mapper;
 
-        public UsersService(DataContext dataContext)
+        public UsersService(DataContext dataContext, IMapper mapper)
         {
             _dataContext = dataContext;
+            _mapper = mapper;
         }
 
         public async Task<List<User>> GetUsersAsync()
@@ -38,12 +41,9 @@ namespace DevsHub.Services
 
         public async Task<User> CreateUserAsync(CreateUserRequest request)
         {
-            // TODO
-            var user = new User
-            {
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
+            var user = _mapper.Map<User>(request);
+            user.CreatedAt = DateTime.UtcNow;
+            user.UpdatedAt = DateTime.UtcNow;
 
             await _dataContext.Users.AddAsync(user);
             var created = await _dataContext.SaveChangesAsync();
@@ -58,7 +58,9 @@ namespace DevsHub.Services
             if (user == null)
                 return null;
 
-            // TODO
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
+            user.Email = request.Email;
             user.UpdatedAt = DateTime.UtcNow;
 
             _dataContext.Users.Update(user);

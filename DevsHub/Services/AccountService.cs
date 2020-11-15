@@ -1,4 +1,5 @@
-﻿using DevsHub.Contracts.V1.Requests;
+﻿using AutoMapper;
+using DevsHub.Contracts.V1.Requests;
 using DevsHub.Contracts.V1.Responses;
 using DevsHub.Data;
 using DevsHub.Domain;
@@ -26,11 +27,13 @@ namespace DevsHub.Services
     {
         private readonly DataContext _dataContext;
         private readonly JwtSettings _jwtSettings;
+        private readonly IMapper _mapper;
 
-        public AccountService(DataContext dataContext, JwtSettings jwtSettings)
+        public AccountService(DataContext dataContext, JwtSettings jwtSettings, IMapper mapper)
         {
             _dataContext = dataContext;
             _jwtSettings = jwtSettings;
+            _mapper = mapper;
         }
 
         public async Task<AuthenticationResponse> LoginAsync(LoginRequest request)
@@ -53,16 +56,11 @@ namespace DevsHub.Services
 
             CreatePasswordHash(request.Password, out var passwordHash, out var passwordSalt);
 
-            var user = new User
-            {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Email = request.Email,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
+            var user = _mapper.Map<User>(request);
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+            user.CreatedAt = DateTime.UtcNow;
+            user.UpdatedAt = DateTime.UtcNow;
 
             _dataContext.Users.Add(user);
             await _dataContext.SaveChangesAsync();
