@@ -61,6 +61,7 @@ namespace DevsHub.Services
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
             user.Email = request.Email;
+            user.Role = request.Role;
             user.UpdatedAt = DateTime.UtcNow;
 
             _dataContext.Users.Update(user);
@@ -72,6 +73,8 @@ namespace DevsHub.Services
 
         public async Task<bool> DeleteUserAsync(Guid id)
         {
+            // TODO inactive user
+
             var user = await GetUserAsync(id);
             if (user == null)
                 return false;

@@ -59,6 +59,7 @@ namespace DevsHub.Services
             var user = _mapper.Map<User>(request);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.Role = Role.User;
             user.CreatedAt = DateTime.UtcNow;
             user.UpdatedAt = DateTime.UtcNow;
 
@@ -84,7 +85,8 @@ namespace DevsHub.Services
                     new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim("id", user.Id.ToString())
+                    new Claim("id", user.Id.ToString()),
+                    new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Expires = DateTime.UtcNow.Add(_jwtSettings.TokenLifetime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

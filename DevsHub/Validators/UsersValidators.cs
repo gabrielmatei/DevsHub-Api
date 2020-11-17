@@ -18,6 +18,7 @@ namespace DevsHub.Validators
             RuleFor(x => x.Email)
                 .NotEmpty()
                 .EmailAddress();
+            // TODO validate role
         }
     }
 
@@ -36,6 +37,7 @@ namespace DevsHub.Validators
             RuleFor(x => x.Email)
                 .NotEmpty()
                 .EmailAddress();
+            // TODO validate role
         }
     }
 }

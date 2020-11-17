@@ -2,6 +2,7 @@
 using DevsHub.Contracts.V1;
 using DevsHub.Contracts.V1.Requests;
 using DevsHub.Contracts.V1.Responses;
+using DevsHub.Domain;
 using DevsHub.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +11,8 @@ using System.Threading.Tasks;
 
 namespace DevsHub.Controllers.V1
 {
-    [ApiController]
     [Authorize]
+    [ApiController]
     [Produces("application/json")]
     public class UsersController : ControllerBase
     {
@@ -43,6 +44,7 @@ namespace DevsHub.Controllers.V1
             return NotFound();
         }
 
+        [Authorize(Roles = Role.Admin)]
         [HttpPost(ApiRoutes.Users.Create)]
         [ProducesResponseType(typeof(UserResponse), 20)]
         [ProducesResponseType(400)]
@@ -57,6 +59,7 @@ namespace DevsHub.Controllers.V1
             return BadRequest();
         }
 
+        [Authorize(Roles = Role.Admin)]
         [HttpPut(ApiRoutes.Users.Update)]
         [ProducesResponseType(typeof(UserResponse), 20)]
         [ProducesResponseType(404)]
@@ -68,6 +71,7 @@ namespace DevsHub.Controllers.V1
             return NotFound();
         }
 
+        [Authorize(Roles = Role.Admin)]
         [HttpDelete(ApiRoutes.Users.Delete)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
