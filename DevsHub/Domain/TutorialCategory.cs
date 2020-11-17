@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DevsHub.Domain
 {
-    public class Value
+    public class TutorialCategory
     {
         [Key]
         public Guid Id { get; set; }

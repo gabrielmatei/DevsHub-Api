@@ -19,6 +19,13 @@ namespace DevsHub.MappingProfiles
             CreateMap<List<User>, UserListResponse>()
                 .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src));
             #endregion
+            #region Tutorials
+            #endregion
+            #region Tutorial Categories
+            CreateMap<TutorialCategory, TutorialCategoryResponse>();
+            CreateMap<List<TutorialCategory>, TutorialCategoryListResponse>()
+                .ForMember(dest => dest.TutorialCategories, opt => opt.MapFrom(src => src));
+            #endregion
         }
     }
 }

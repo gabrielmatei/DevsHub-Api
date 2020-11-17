@@ -15,6 +15,12 @@ namespace DevsHub.MappingProfiles
             CreateMap<CreateUserRequest, User>();
             CreateMap<UpdateUserRequest, User>();
             #endregion
+            #region Tutorials
+            #endregion
+            #region Tutorial Categories
+            CreateMap<CreateTutorialCategoryRequest, TutorialCategory>();
+            CreateMap<UpdateTutorialCategoryRequest, TutorialCategory>();
+            #endregion
         }
     }
 }

@@ -15,9 +15,9 @@ namespace DevsHub.Installers
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddScoped<IValueService, ValueService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<ITutorialService, TutorialService>();
         }
     }
 }

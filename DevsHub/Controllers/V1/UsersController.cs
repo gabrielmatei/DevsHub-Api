@@ -46,7 +46,7 @@ namespace DevsHub.Controllers.V1
 
         [Authorize(Roles = Role.Admin)]
         [HttpPost(ApiRoutes.Users.Create)]
-        [ProducesResponseType(typeof(UserResponse), 20)]
+        [ProducesResponseType(typeof(UserResponse), 200)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
@@ -61,7 +61,7 @@ namespace DevsHub.Controllers.V1
 
         [Authorize(Roles = Role.Admin)]
         [HttpPut(ApiRoutes.Users.Update)]
-        [ProducesResponseType(typeof(UserResponse), 20)]
+        [ProducesResponseType(typeof(UserResponse), 200)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserRequest request)
         {

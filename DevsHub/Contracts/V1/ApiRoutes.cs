@@ -7,15 +7,6 @@
 
         private const string Base = Root + "/" + Version;
 
-        public static class Values
-        {
-            public const string GetAll = Base + "/values";
-            public const string Get = Base + "/values/{id}";
-            public const string Create = Base + "/values";
-            public const string Update = Base + "/values/{id}";
-            public const string Delete = Base + "/values/{id}";
-        }
-
         public static class Account
         {
             public const string Register = Base + "/account/register";
@@ -30,6 +21,17 @@
             public const string Create = Base + "/users";
             public const string Update = Base + "/users/{id}";
             public const string Delete = Base + "/users/{id}";
+        }
+
+        public static class Tutorial
+        {
+            public static class Category
+            {
+                public const string GetAll = Base + "/tutorials/categories";
+                public const string Create = Base + "/tutorials/categories";
+                public const string Update = Base + "/tutorials/categories/{id}";
+                public const string Delete = Base + "/tutorials/categories/{id}";
+            }
         }
     }
 }
