@@ -13,7 +13,6 @@ namespace DevsHub.Services
     {
         Task<List<User>> GetUsersAsync();
         Task<User> GetUserAsync(Guid id);
-        Task<User> CreateUserAsync(CreateUserRequest request);
         Task<User> UpdateUserAsync(Guid id, UpdateUserRequest request);
         Task<bool> DeleteUserAsync(Guid id);
     }
@@ -36,20 +35,7 @@ namespace DevsHub.Services
 
         public async Task<User> GetUserAsync(Guid id)
         {
-            return await _dataContext.Users.FirstOrDefaultAsync(u => u.Id == id);
-        }
-
-        public async Task<User> CreateUserAsync(CreateUserRequest request)
-        {
-            var user = _mapper.Map<User>(request);
-            user.CreatedAt = DateTime.UtcNow;
-            user.UpdatedAt = DateTime.UtcNow;
-
-            await _dataContext.Users.AddAsync(user);
-            var created = await _dataContext.SaveChangesAsync();
-            if (created > 0)
-                return user;
-            return null;
+            return await _dataContext.Users.Include(u => u.Profile).FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<User> UpdateUserAsync(Guid id, UpdateUserRequest request)
@@ -58,9 +44,6 @@ namespace DevsHub.Services
             if (user == null)
                 return null;
 
-            user.FirstName = request.FirstName;
-            user.LastName = request.LastName;
-            user.Email = request.Email;
             user.Role = request.Role;
             user.UpdatedAt = DateTime.UtcNow;
 

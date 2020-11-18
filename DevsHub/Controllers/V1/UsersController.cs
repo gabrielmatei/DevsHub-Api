@@ -45,21 +45,6 @@ namespace DevsHub.Controllers.V1
         }
 
         [Authorize(Roles = Role.Admin)]
-        [HttpPost(ApiRoutes.Users.Create)]
-        [ProducesResponseType(typeof(UserResponse), 200)]
-        [ProducesResponseType(400)]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
-        {
-            var createdUser = await _usersService.CreateUserAsync(request);
-            if (createdUser != null)
-            {
-                var locationUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}/{ApiRoutes.Users.Get.Replace("{id}", createdUser.Id.ToString())}";
-                return Created(locationUri, _mapper.Map<UserResponse>(createdUser));
-            }
-            return BadRequest();
-        }
-
-        [Authorize(Roles = Role.Admin)]
         [HttpPut(ApiRoutes.Users.Update)]
         [ProducesResponseType(typeof(UserResponse), 200)]
         [ProducesResponseType(404)]

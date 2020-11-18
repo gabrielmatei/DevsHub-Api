@@ -10,11 +10,13 @@ namespace DevsHub.MappingProfiles
         public DomainToResponseProfile()
         {
             #region Account
-            CreateMap<User, AccountResponse>()
+            CreateMap<User, AccountResponse>();
+            CreateMap<UserProfile, UserProfileResponse>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
             #endregion
             #region Users
-            CreateMap<User, UserResponse>()
+            CreateMap<User, UserResponse>();
+            CreateMap<UserProfile, UserProfileResponse>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
             CreateMap<List<User>, UserListResponse>()
                 .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src));

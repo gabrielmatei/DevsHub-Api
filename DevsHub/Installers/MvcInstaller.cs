@@ -28,7 +28,14 @@ namespace DevsHub.Installers
             {
                 options.Filters.Add<ValidationFilter>();
             })
-            .AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>());
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+            })
+            .AddFluentValidation(mvcConfiguration =>
+            {
+                mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
 
             var tokenValidatonParameters = new TokenValidationParameters
             {

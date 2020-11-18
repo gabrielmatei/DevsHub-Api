@@ -10,6 +10,7 @@ namespace DevsHub.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<TutorialCategory> TutorialCategories { get; set; }
     }
 }

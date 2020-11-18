@@ -21,6 +21,7 @@ namespace DevsHub.Services
         Task<AuthenticationResponse> LoginAsync(LoginRequest request);
         Task<AuthenticationResponse> RegisterAsync(RegisterRequest request);
         Task<User> GetAccountAsync(Guid userId);
+        Task<User> UpdateAccountAsync(Guid userId, UpdateAccountRequest request);
     }
 
     public class AccountService : IAccountService
@@ -57,11 +58,15 @@ namespace DevsHub.Services
             CreatePasswordHash(request.Password, out var passwordHash, out var passwordSalt);
 
             var user = _mapper.Map<User>(request);
+            var profile = _mapper.Map<UserProfile>(request);
+
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
             user.Role = Role.User;
             user.CreatedAt = DateTime.UtcNow;
             user.UpdatedAt = DateTime.UtcNow;
+            user.Profile = profile;
+            profile.Rating = 100;
 
             _dataContext.Users.Add(user);
             await _dataContext.SaveChangesAsync();
@@ -71,7 +76,25 @@ namespace DevsHub.Services
 
         public async Task<User> GetAccountAsync(Guid userId)
         {
-            return await _dataContext.Users.SingleOrDefaultAsync(u => u.Id == userId);
+            return await _dataContext.Users.Include(u => u.Profile).SingleOrDefaultAsync(u => u.Id == userId);
+        }
+
+        public async Task<User> UpdateAccountAsync(Guid userId, UpdateAccountRequest request)
+        {
+            var account = await GetAccountAsync(userId);
+            if (account == null)
+                return null;
+            if (account.Profile == null)
+                return null;
+
+            account.Profile.FirstName = request.FirstName;
+            account.Profile.LastName = request.LastName;
+
+            _dataContext.UserProfiles.Update(account.Profile);
+            var updated = await _dataContext.SaveChangesAsync();
+            if (updated > 0)
+                return account;
+            return null;
         }
 
         private AuthenticationResponse GenerateAuthenticationResult(User user)

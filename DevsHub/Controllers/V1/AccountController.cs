@@ -58,5 +58,19 @@ namespace DevsHub.Controllers.V1
                 return Ok(_mapper.Map<AccountResponse>(response));
             return BadRequest();
         }
+
+        [Authorize]
+        [HttpPut(ApiRoutes.Account.Update)]
+        [ProducesResponseType(typeof(AccountResponse), 200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccountRequest request)
+        {
+            Guid.TryParse(User.FindFirst("id")?.Value, out var userId);
+
+            var updatedAccount = await _accountService.UpdateAccountAsync(userId, request);
+            if (updatedAccount != null)
+                return Ok(_mapper.Map<AccountResponse>(updatedAccount));
+            return BadRequest();
+        }
     }
 }

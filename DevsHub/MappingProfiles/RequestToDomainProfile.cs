@@ -10,9 +10,9 @@ namespace DevsHub.MappingProfiles
         {
             #region Account
             CreateMap<RegisterRequest, User>();
+            CreateMap<RegisterRequest, UserProfile>();
             #endregion
             #region Users
-            CreateMap<CreateUserRequest, User>();
             CreateMap<UpdateUserRequest, User>();
             #endregion
             #region Tutorials
