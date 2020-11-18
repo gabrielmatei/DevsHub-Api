@@ -21,6 +21,18 @@ namespace DevsHub.MappingProfiles
             CreateMap<List<User>, UserListResponse>()
                 .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src));
             #endregion
+            #region Contests
+            CreateMap<Contest, ContestShortResponse>()
+                .ForMember(dest => dest.OrganizerId, opt => opt.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.Organizer, opt => opt.MapFrom(src => src.User.Profile));
+            CreateMap<List<Contest>, ContestShortListResponse>()
+                .ForMember(dest => dest.Contests, opt => opt.MapFrom(src => src));
+            CreateMap<Contest, ContestResponse>()
+                .ForMember(dest => dest.OrganizerId, opt => opt.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.Organizer, opt => opt.MapFrom(src => src.User.Profile));
+            CreateMap<List<Contest>, ContestListResponse>()
+                .ForMember(dest => dest.Contests, opt => opt.MapFrom(src => src));
+            #endregion
             #region Tutorials
             #endregion
             #region Tutorial Categories

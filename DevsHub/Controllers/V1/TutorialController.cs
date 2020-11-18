@@ -38,7 +38,7 @@ namespace DevsHub.Controllers.V1
 
         [Authorize(Roles = Role.Admin)]
         [HttpPost(ApiRoutes.Tutorial.Category.Create)]
-        [ProducesResponseType(typeof(TutorialCategoryResponse), 200)]
+        [ProducesResponseType(typeof(TutorialCategoryResponse), 201)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> CreateCategory([FromBody] CreateTutorialCategoryRequest request)
         {

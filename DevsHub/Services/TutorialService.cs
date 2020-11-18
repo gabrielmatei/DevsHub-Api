@@ -40,7 +40,7 @@ namespace DevsHub.Services
 
         public async Task<TutorialCategory> GetTutorialCategoryAsync(Guid id)
         {
-            return await _dataContext.TutorialCategories.SingleOrDefaultAsync(value => value.Id == id);
+            return await _dataContext.TutorialCategories.SingleOrDefaultAsync(t => t.Id == id);
         }
 
         public async Task<TutorialCategory> CreateTutorialCategoryAsync(CreateTutorialCategoryRequest request)

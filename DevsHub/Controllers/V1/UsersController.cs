@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace DevsHub.Controllers.V1
 {
-    [Authorize]
     [ApiController]
     [Produces("application/json")]
     public class UsersController : ControllerBase
@@ -25,6 +24,7 @@ namespace DevsHub.Controllers.V1
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet(ApiRoutes.Users.GetAll)]
         [ProducesResponseType(typeof(UserListResponse), 200)]
         public async Task<IActionResult> GetUsers()
@@ -33,6 +33,7 @@ namespace DevsHub.Controllers.V1
             return Ok(_mapper.Map<UserListResponse>(users));
         }
 
+        [AllowAnonymous]
         [HttpGet(ApiRoutes.Users.Get)]
         [ProducesResponseType(typeof(UserResponse), 200)]
         [ProducesResponseType(404)]

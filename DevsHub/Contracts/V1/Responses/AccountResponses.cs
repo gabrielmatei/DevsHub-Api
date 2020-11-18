@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DevsHub.Contracts.V1.Responses
 {
@@ -13,5 +14,6 @@ namespace DevsHub.Contracts.V1.Responses
         public string Name { get; set; }
         public string Email { get; set; }
         public UserProfileResponse Profile { get; set; }
+        public List<ContestShortResponse> Contests { get; set; }
     }
 }

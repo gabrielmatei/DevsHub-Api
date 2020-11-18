@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DevsHub.Domain
@@ -15,5 +16,6 @@ namespace DevsHub.Domain
         public DateTime UpdatedAt { get; set; }
 
         public virtual UserProfile Profile { get; set; }
+        public virtual ICollection<Contest> Contests { get; set; }
     }
 }

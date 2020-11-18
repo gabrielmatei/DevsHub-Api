@@ -35,7 +35,10 @@ namespace DevsHub.Services
 
         public async Task<User> GetUserAsync(Guid id)
         {
-            return await _dataContext.Users.Include(u => u.Profile).FirstOrDefaultAsync(u => u.Id == id);
+            return await _dataContext.Users
+                .Include(u => u.Profile)
+                .Include(u => u.Contests)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<User> UpdateUserAsync(Guid id, UpdateUserRequest request)

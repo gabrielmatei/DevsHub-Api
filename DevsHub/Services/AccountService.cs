@@ -76,7 +76,10 @@ namespace DevsHub.Services
 
         public async Task<User> GetAccountAsync(Guid userId)
         {
-            return await _dataContext.Users.Include(u => u.Profile).SingleOrDefaultAsync(u => u.Id == userId);
+            return await _dataContext.Users
+                .Include(u => u.Profile)
+                .Include(u => u.Contests)
+                .SingleOrDefaultAsync(u => u.Id == userId);
         }
 
         public async Task<User> UpdateAccountAsync(Guid userId, UpdateAccountRequest request)

@@ -7,7 +7,6 @@ namespace DevsHub.Contracts.V1.Responses
     #endregion
 
     #region Categories
-
     public class TutorialCategoryResponse
     {
         public Guid Id { get; set; }

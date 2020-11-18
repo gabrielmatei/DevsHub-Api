@@ -23,6 +23,15 @@
             public const string Delete = Base + "/users/{id}";
         }
 
+        public static class Contest
+        {
+            public const string GetAll = Base + "/contests";
+            public const string Get = Base + "/contests/{id}";
+            public const string Create = Base + "/contests";
+            public const string Update = Base + "/contests/{id}";
+            public const string Delete = Base + "/contests/{id}";
+        }
+
         public static class Tutorial
         {
             public static class Category

@@ -17,6 +17,7 @@ namespace DevsHub.Installers
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IContestService, ContestService>();
             services.AddScoped<ITutorialService, TutorialService>();
         }
     }
