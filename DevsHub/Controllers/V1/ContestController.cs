@@ -3,6 +3,7 @@ using DevsHub.Contracts.V1;
 using DevsHub.Contracts.V1.Requests;
 using DevsHub.Contracts.V1.Responses;
 using DevsHub.Domain;
+using DevsHub.Helpers;
 using DevsHub.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -55,10 +56,7 @@ namespace DevsHub.Controllers.V1
 
             var createdContest = await _contestService.CreateContestAsync(userId, request);
             if (createdContest != null)
-            {
-                var locationUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}/{ApiRoutes.Contest.Get.Replace("{id}", createdContest.Id.ToString())}";
-                return Created(locationUri, _mapper.Map<ContestResponse>(createdContest));
-            }
+                return Created(ApiHelper.GetResourceUri(HttpContext.Request, ApiRoutes.Contest.Get, createdContest.Id), _mapper.Map<ContestResponse>(createdContest));
             return BadRequest();
         }
 

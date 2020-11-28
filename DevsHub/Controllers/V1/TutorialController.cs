@@ -3,6 +3,7 @@ using DevsHub.Contracts.V1;
 using DevsHub.Contracts.V1.Requests;
 using DevsHub.Contracts.V1.Responses;
 using DevsHub.Domain;
+using DevsHub.Helpers;
 using DevsHub.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,10 +45,7 @@ namespace DevsHub.Controllers.V1
         {
             var createdCategory = await _tutorialService.CreateTutorialCategoryAsync(request);
             if (createdCategory != null)
-            {
-                var locationUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}/{ApiRoutes.Tutorial.Category.GetAll}";
-                return Created(locationUri, _mapper.Map<TutorialCategoryResponse>(createdCategory));
-            }
+                return Created(ApiHelper.GetResourceUri(HttpContext.Request, ApiRoutes.Tutorial.Category.GetAll), _mapper.Map<TutorialCategoryResponse>(createdCategory));
             return BadRequest();
         }
 
