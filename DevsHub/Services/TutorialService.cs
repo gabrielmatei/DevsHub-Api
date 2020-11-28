@@ -13,8 +13,8 @@ namespace DevsHub.Services
     {
         Task<List<TutorialCategory>> GetTutorialCategoriesAsync();
         Task<TutorialCategory> GetTutorialCategoryAsync(Guid id);
-        Task<TutorialCategory> CreateTutorialCategoryAsync(CreateTutorialCategoryRequest value);
-        Task<TutorialCategory> UpdateTutorialCategoryAsync(Guid id, UpdateTutorialCategoryRequest value);
+        Task<TutorialCategory> CreateTutorialCategoryAsync(CreateOrUpdateTutorialCategoryRequest value);
+        Task<TutorialCategory> UpdateTutorialCategoryAsync(Guid id, CreateOrUpdateTutorialCategoryRequest value);
         Task<bool> DeleteTutorialCategoryAsync(Guid id);
     }
 
@@ -43,7 +43,7 @@ namespace DevsHub.Services
             return await _dataContext.TutorialCategories.SingleOrDefaultAsync(t => t.Id == id);
         }
 
-        public async Task<TutorialCategory> CreateTutorialCategoryAsync(CreateTutorialCategoryRequest request)
+        public async Task<TutorialCategory> CreateTutorialCategoryAsync(CreateOrUpdateTutorialCategoryRequest request)
         {
             var category = _mapper.Map<TutorialCategory>(request);
 
@@ -54,7 +54,7 @@ namespace DevsHub.Services
             return null;
         }
 
-        public async Task<TutorialCategory> UpdateTutorialCategoryAsync(Guid id, UpdateTutorialCategoryRequest request)
+        public async Task<TutorialCategory> UpdateTutorialCategoryAsync(Guid id, CreateOrUpdateTutorialCategoryRequest request)
         {
             var category = await GetTutorialCategoryAsync(id);
             if (category == null)

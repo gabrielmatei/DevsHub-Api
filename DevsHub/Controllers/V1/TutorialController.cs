@@ -40,7 +40,7 @@ namespace DevsHub.Controllers.V1
         [HttpPost(ApiRoutes.Tutorial.Category.Create)]
         [ProducesResponseType(typeof(TutorialCategoryResponse), 201)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> CreateCategory([FromBody] CreateTutorialCategoryRequest request)
+        public async Task<IActionResult> CreateCategory([FromBody] CreateOrUpdateTutorialCategoryRequest request)
         {
             var createdCategory = await _tutorialService.CreateTutorialCategoryAsync(request);
             if (createdCategory != null)
@@ -55,7 +55,7 @@ namespace DevsHub.Controllers.V1
         [HttpPut(ApiRoutes.Tutorial.Category.Update)]
         [ProducesResponseType(typeof(TutorialCategoryResponse), 200)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> UpdateCategory([FromRoute] Guid id, [FromBody] UpdateTutorialCategoryRequest request)
+        public async Task<IActionResult> UpdateCategory([FromRoute] Guid id, [FromBody] CreateOrUpdateTutorialCategoryRequest request)
         {
             var updatedCategory = await _tutorialService.UpdateTutorialCategoryAsync(id, request);
             if (updatedCategory != null)

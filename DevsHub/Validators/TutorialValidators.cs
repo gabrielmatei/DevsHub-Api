@@ -7,17 +7,7 @@ namespace DevsHub.Validators
     #endregion
 
     #region Categories
-    public class CreateTutorialCategoryRequestValidator : AbstractValidator<CreateTutorialCategoryRequest>
-    {
-        public CreateTutorialCategoryRequestValidator()
-        {
-            RuleFor(x => x.Name)
-               .NotEmpty()
-               .MaximumLength(50);
-        }
-    }
-
-    public class UpdateTutorialCategoryRequestValidator : AbstractValidator<UpdateTutorialCategoryRequest>
+    public class UpdateTutorialCategoryRequestValidator : AbstractValidator<CreateOrUpdateTutorialCategoryRequest>
     {
         public UpdateTutorialCategoryRequestValidator()
         {

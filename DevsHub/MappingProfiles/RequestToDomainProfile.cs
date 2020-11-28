@@ -21,8 +21,7 @@ namespace DevsHub.MappingProfiles
             #region Tutorials
             #endregion
             #region Tutorial Categories
-            CreateMap<CreateTutorialCategoryRequest, TutorialCategory>();
-            CreateMap<UpdateTutorialCategoryRequest, TutorialCategory>();
+            CreateMap<CreateOrUpdateTutorialCategoryRequest, TutorialCategory>();
             #endregion
         }
     }

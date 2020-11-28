@@ -4,12 +4,7 @@
     #endregion
 
     #region Categories
-    public class CreateTutorialCategoryRequest
-    {
-        public string Name { get; set; }
-    }
-
-    public class UpdateTutorialCategoryRequest
+    public class CreateOrUpdateTutorialCategoryRequest
     {
         public string Name { get; set; }
     }
