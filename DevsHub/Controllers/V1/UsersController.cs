@@ -2,7 +2,7 @@
 using DevsHub.Contracts.V1;
 using DevsHub.Contracts.V1.Requests;
 using DevsHub.Contracts.V1.Responses;
-using DevsHub.Domain;
+using DevsHub.Data;
 using DevsHub.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

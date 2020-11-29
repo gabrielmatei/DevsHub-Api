@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DevsHub.Migrations
+namespace DevsHub.Data.Migrations
 {
     public partial class AddedValues : Migration
     {

@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using DevsHub.Contracts.V1.Requests;
 using DevsHub.Data;
-using DevsHub.Domain;
-using Microsoft.EntityFrameworkCore;
+using DevsHub.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,55 +18,42 @@ namespace DevsHub.Services
 
     public class UsersService : IUsersService
     {
-        private readonly DataContext _dataContext;
+        private readonly IUsersRepository _usersRepository;
         private readonly IMapper _mapper;
 
-        public UsersService(DataContext dataContext, IMapper mapper)
+        public UsersService(IUsersRepository usersRepository, IMapper mapper)
         {
-            _dataContext = dataContext;
+            _usersRepository = usersRepository;
             _mapper = mapper;
         }
 
         public async Task<List<User>> GetUsersAsync()
         {
-            return await _dataContext.Users.ToListAsync();
+            return await _usersRepository.GetUsersAsync();
         }
 
         public async Task<User> GetUserAsync(Guid id)
         {
-            return await _dataContext.Users
-                .Include(u => u.Profile)
-                .Include(u => u.Contests)
-                .FirstOrDefaultAsync(u => u.Id == id);
+            return await _usersRepository.GetUserAsync(id);
         }
 
         public async Task<User> UpdateUserAsync(Guid id, UpdateUserRequest request)
         {
-            var user = await GetUserAsync(id);
+            var user = await _usersRepository.GetAsync(id);
             if (user == null)
                 return null;
 
-            user.Role = request.Role;
-            user.UpdatedAt = DateTime.UtcNow;
-
-            _dataContext.Users.Update(user);
-            var updated = await _dataContext.SaveChangesAsync();
-            if (updated > 0)
-                return user;
-            return null;
+            user.Update(_mapper.Map<User>(request));
+            return await _usersRepository.UpdateAsync(user);
         }
 
         public async Task<bool> DeleteUserAsync(Guid id)
         {
-            // TODO inactive user
-
-            var user = await GetUserAsync(id);
+            var user = await _usersRepository.GetAsync(id);
             if (user == null)
                 return false;
 
-            _dataContext.Users.Remove(user);
-            var deleted = await _dataContext.SaveChangesAsync();
-            return deleted > 0;
+            return await _usersRepository.DeleteAsync(user);
         }
     }
 }

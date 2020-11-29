@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DevsHub.Domain
+namespace DevsHub.Data
 {
-    public class User
+    public partial class User
     {
         [Key]
         public Guid Id { get; set; }

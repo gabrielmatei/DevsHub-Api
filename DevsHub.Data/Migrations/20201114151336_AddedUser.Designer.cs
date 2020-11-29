@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DevsHub.Migrations
+namespace DevsHub.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201118193312_UserRating")]
-    partial class UserRating
+    [Migration("20201114151336_AddedUser")]
+    partial class AddedUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,20 +20,6 @@ namespace DevsHub.Migrations
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("DevsHub.Domain.TutorialCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TutorialCategories");
-                });
 
             modelBuilder.Entity("DevsHub.Domain.User", b =>
                 {
@@ -47,14 +33,17 @@ namespace DevsHub.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<byte[]>("PasswordHash")
                         .HasColumnType("varbinary(max)");
 
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -64,39 +53,18 @@ namespace DevsHub.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DevsHub.Domain.UserProfile", b =>
+            modelBuilder.Entity("DevsHub.Domain.Value", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("UserProfiles");
-                });
-
-            modelBuilder.Entity("DevsHub.Domain.UserProfile", b =>
-                {
-                    b.HasOne("DevsHub.Domain.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("DevsHub.Domain.UserProfile", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("Values");
                 });
 #pragma warning restore 612, 618
         }

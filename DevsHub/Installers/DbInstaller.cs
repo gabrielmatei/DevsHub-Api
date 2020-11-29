@@ -1,4 +1,5 @@
 ﻿using DevsHub.Data;
+using DevsHub.Data.Repositories;
 using DevsHub.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,10 +16,19 @@ namespace DevsHub.Installers
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<IUsersService, UsersService>();
-            services.AddScoped<IContestService, ContestService>();
-            services.AddScoped<ITutorialService, TutorialService>();
+            #region Repositories
+            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IUserProfilesRepository, UserProfilesRepository>();
+            services.AddScoped<IContestsRepository, ContestsRepository>();
+            services.AddScoped<ITutorialCategoriesRepository, TutorialCategoriesRepository>();
+            #endregion
+
+            #region Services
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IContestService, ContestService>();
+            services.AddTransient<ITutorialService, TutorialService>();
+            #endregion
         }
     }
 }

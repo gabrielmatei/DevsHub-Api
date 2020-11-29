@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using DevsHub.Contracts.V1.Requests;
 using DevsHub.Data;
-using DevsHub.Domain;
-using Microsoft.EntityFrameworkCore;
+using DevsHub.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,12 +19,12 @@ namespace DevsHub.Services
 
     public class TutorialService : ITutorialService
     {
-        private readonly DataContext _dataContext;
+        private readonly ITutorialCategoriesRepository _tutorialCategories;
         private readonly IMapper _mapper;
 
-        public TutorialService(DataContext dataContext, IMapper mapper)
+        public TutorialService(ITutorialCategoriesRepository tutorialCategories, IMapper mapper)
         {
-            _dataContext = dataContext;
+            _tutorialCategories = tutorialCategories;
             _mapper = mapper;
         }
 
@@ -35,49 +34,37 @@ namespace DevsHub.Services
         #region Categories
         public async Task<List<TutorialCategory>> GetTutorialCategoriesAsync()
         {
-            return await _dataContext.TutorialCategories.ToListAsync();
+            return await _tutorialCategories.GetListAsync();
         }
 
         public async Task<TutorialCategory> GetTutorialCategoryAsync(Guid id)
         {
-            return await _dataContext.TutorialCategories.SingleOrDefaultAsync(t => t.Id == id);
+            return await _tutorialCategories.GetAsync(id);
         }
 
         public async Task<TutorialCategory> CreateTutorialCategoryAsync(CreateOrUpdateTutorialCategoryRequest request)
         {
-            var category = _mapper.Map<TutorialCategory>(request);
-
-            await _dataContext.TutorialCategories.AddAsync(category);
-            var created = await _dataContext.SaveChangesAsync();
-            if (created > 0)
-                return category;
-            return null;
+            var tutorialCategory = _mapper.Map<TutorialCategory>(request);
+            return await _tutorialCategories.AddAsync(tutorialCategory);
         }
 
         public async Task<TutorialCategory> UpdateTutorialCategoryAsync(Guid id, CreateOrUpdateTutorialCategoryRequest request)
         {
-            var category = await GetTutorialCategoryAsync(id);
-            if (category == null)
+            var tutorialCategory = await _tutorialCategories.GetAsync(id);
+            if (tutorialCategory == null)
                 return null;
 
-            category.Name = request.Name;
-
-            _dataContext.TutorialCategories.Update(category);
-            var updated = await _dataContext.SaveChangesAsync();
-            if (updated > 0)
-                return category;
-            return null;
+            tutorialCategory.Update(_mapper.Map<TutorialCategory>(request));
+            return await _tutorialCategories.UpdateAsync(tutorialCategory);
         }
 
         public async Task<bool> DeleteTutorialCategoryAsync(Guid id)
         {
-            var category = await GetTutorialCategoryAsync(id);
-            if (category == null)
+            var tutorialCategory = await _tutorialCategories.GetAsync(id);
+            if (tutorialCategory == null)
                 return false;
 
-            _dataContext.TutorialCategories.Remove(category);
-            var deleted = await _dataContext.SaveChangesAsync();
-            return deleted > 0;
+            return await _tutorialCategories.DeleteAsync(tutorialCategory);
         }
         #endregion
     }

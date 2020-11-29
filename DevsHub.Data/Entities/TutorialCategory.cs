@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DevsHub.Domain
+namespace DevsHub.Data
 {
-    public class TutorialCategory
+    public partial class TutorialCategory
     {
         [Key]
         public Guid Id { get; set; }

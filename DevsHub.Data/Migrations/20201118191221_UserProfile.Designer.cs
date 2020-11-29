@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DevsHub.Migrations
+namespace DevsHub.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20201118191221_UserProfile")]

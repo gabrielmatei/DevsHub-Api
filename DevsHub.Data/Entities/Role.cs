@@ -1,4 +1,4 @@
-﻿namespace DevsHub.Domain
+﻿namespace DevsHub.Data
 {
     public static class Role
     {

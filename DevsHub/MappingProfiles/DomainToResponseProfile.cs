@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DevsHub.Contracts.V1.Responses;
-using DevsHub.Domain;
+using DevsHub.Data;
 using System.Collections.Generic;
 
 namespace DevsHub.MappingProfiles
@@ -16,6 +16,7 @@ namespace DevsHub.MappingProfiles
             #endregion
             #region Users
             CreateMap<User, UserResponse>();
+            CreateMap<User, UserShortResponse>();
             CreateMap<UserProfile, UserProfileResponse>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
             CreateMap<List<User>, UserListResponse>()

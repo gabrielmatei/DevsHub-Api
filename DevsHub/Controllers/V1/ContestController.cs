@@ -2,7 +2,7 @@
 using DevsHub.Contracts.V1;
 using DevsHub.Contracts.V1.Requests;
 using DevsHub.Contracts.V1.Responses;
-using DevsHub.Domain;
+using DevsHub.Data;
 using DevsHub.Helpers;
 using DevsHub.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -27,11 +27,11 @@ namespace DevsHub.Controllers.V1
 
         [AllowAnonymous]
         [HttpGet(ApiRoutes.Contest.GetAll)]
-        [ProducesResponseType(typeof(ContestListResponse), 200)]
+        [ProducesResponseType(typeof(ContestShortListResponse), 200)]
         public async Task<IActionResult> GetContests()
         {
             var contests = await _contestService.GetContestsAsync();
-            return Ok(_mapper.Map<ContestListResponse>(contests));
+            return Ok(_mapper.Map<ContestShortListResponse>(contests));
         }
 
         [AllowAnonymous]

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DevsHub.Contracts.V1.Requests;
-using DevsHub.Domain;
+using DevsHub.Data;
 
 namespace DevsHub.MappingProfiles
 {
@@ -11,6 +11,7 @@ namespace DevsHub.MappingProfiles
             #region Account
             CreateMap<RegisterRequest, User>();
             CreateMap<RegisterRequest, UserProfile>();
+            CreateMap<UpdateAccountRequest, UserProfile>();
             #endregion
             #region Users
             CreateMap<UpdateUserRequest, User>();

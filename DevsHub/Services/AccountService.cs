@@ -2,9 +2,8 @@
 using DevsHub.Contracts.V1.Requests;
 using DevsHub.Contracts.V1.Responses;
 using DevsHub.Data;
-using DevsHub.Domain;
+using DevsHub.Data.Repositories;
 using DevsHub.Options;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -26,20 +25,22 @@ namespace DevsHub.Services
 
     public class AccountService : IAccountService
     {
-        private readonly DataContext _dataContext;
+        private readonly IUsersRepository _usersRepository;
+        private readonly IUserProfilesRepository _userProfilesRepository;
         private readonly JwtSettings _jwtSettings;
         private readonly IMapper _mapper;
 
-        public AccountService(DataContext dataContext, JwtSettings jwtSettings, IMapper mapper)
+        public AccountService(IUsersRepository usersRepository, IUserProfilesRepository userProfilesRepository, JwtSettings jwtSettings, IMapper mapper)
         {
-            _dataContext = dataContext;
+            _usersRepository = usersRepository;
+            _userProfilesRepository = userProfilesRepository;
             _jwtSettings = jwtSettings;
             _mapper = mapper;
         }
 
         public async Task<AuthenticationResponse> LoginAsync(LoginRequest request)
         {
-            var user = await _dataContext.Users.SingleOrDefaultAsync(u => u.Email == request.Email);
+            var user = await _usersRepository.GetAsync(u => u.Email == request.Email);
             if (user == null)
                 return null;
 
@@ -51,7 +52,7 @@ namespace DevsHub.Services
 
         public async Task<AuthenticationResponse> RegisterAsync(RegisterRequest request)
         {
-            var existingUser = await _dataContext.Users.SingleOrDefaultAsync(u => u.Email == request.Email);
+            var existingUser = await _usersRepository.GetAsync(u => u.Email == request.Email);
             if (existingUser != null)
                 return null;
 
@@ -68,36 +69,28 @@ namespace DevsHub.Services
             user.Profile = profile;
             profile.Rating = 100;
 
-            _dataContext.Users.Add(user);
-            await _dataContext.SaveChangesAsync();
+            await _usersRepository.AddAsync(user);
 
             return GenerateAuthenticationResult(user);
         }
 
         public async Task<User> GetAccountAsync(Guid userId)
         {
-            return await _dataContext.Users
-                .Include(u => u.Profile)
-                .Include(u => u.Contests)
-                .SingleOrDefaultAsync(u => u.Id == userId);
+            return await _usersRepository.GetUserAsync(userId);
         }
 
         public async Task<User> UpdateAccountAsync(Guid userId, UpdateAccountRequest request)
         {
-            var account = await GetAccountAsync(userId);
-            if (account == null)
+            var user = await _usersRepository.GetUserAsync(userId);
+            if (user == null)
                 return null;
-            if (account.Profile == null)
+            if (user.Profile == null)
                 return null;
 
-            account.Profile.FirstName = request.FirstName;
-            account.Profile.LastName = request.LastName;
+            user.Profile.Update(_mapper.Map<UserProfile>(request));
+            await _userProfilesRepository.UpdateAsync(user.Profile);
 
-            _dataContext.UserProfiles.Update(account.Profile);
-            var updated = await _dataContext.SaveChangesAsync();
-            if (updated > 0)
-                return account;
-            return null;
+            return user;
         }
 
         private AuthenticationResponse GenerateAuthenticationResult(User user)

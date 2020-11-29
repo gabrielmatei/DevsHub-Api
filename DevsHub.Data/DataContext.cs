@@ -1,5 +1,4 @@
-﻿using DevsHub.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace DevsHub.Data
 {
