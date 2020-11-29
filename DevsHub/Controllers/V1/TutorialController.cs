@@ -26,6 +26,67 @@ namespace DevsHub.Controllers.V1
         }
 
         #region Tutorials
+        [HttpGet(ApiRoutes.Tutorial.GetAll)]
+        [ProducesResponseType(typeof(TutorialListResponse), 200)]
+        public async Task<IActionResult> GetTutorials()
+        {
+            var tutorials = await _tutorialService.GetTutorialsAsync();
+            return Ok(_mapper.Map<TutorialListResponse>(tutorials));
+        }
+
+        [AllowAnonymous]
+        [HttpGet(ApiRoutes.Tutorial.Get)]
+        [ProducesResponseType(typeof(TutorialResponse), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetTutorial([FromRoute] Guid id)
+        {
+            var tutorial = await _tutorialService.GetTutorialAsync(id);
+            if (tutorial != null)
+                return Ok(_mapper.Map<TutorialResponse>(tutorial));
+            return NotFound();
+        }
+
+        [Authorize]
+        [HttpPost(ApiRoutes.Tutorial.Create)]
+        [ProducesResponseType(typeof(TutorialShortResponse), 201)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> CreateTutorial([FromBody] CreateOrUpdateTutorialRequest request)
+        {
+            Guid.TryParse(User.FindFirst("id")?.Value, out var userId);
+
+            var createdTutorial = await _tutorialService.CreateTutorialAsync(userId, request);
+            if (createdTutorial != null)
+                return Created(ApiHelper.GetResourceUri(HttpContext.Request, ApiRoutes.Tutorial.Get, createdTutorial.Id), _mapper.Map<TutorialShortResponse>(createdTutorial));
+            return BadRequest();
+        }
+
+        [Authorize]
+        [HttpPut(ApiRoutes.Tutorial.Update)]
+        [ProducesResponseType(typeof(TutorialShortResponse), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> UpdateTutorial([FromRoute] Guid id, [FromBody] CreateOrUpdateTutorialRequest request)
+        {
+            Guid.TryParse(User.FindFirst("id")?.Value, out var userId);
+
+            var updatedTutorial = await _tutorialService.UpdateTutorialAsync(id, userId, request);
+            if (updatedTutorial != null)
+                return Ok(_mapper.Map<TutorialShortResponse>(updatedTutorial));
+            return NotFound();
+        }
+
+        [Authorize]
+        [HttpDelete(ApiRoutes.Tutorial.Delete)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> DeleteTutorial([FromRoute] Guid id)
+        {
+            Guid.TryParse(User.FindFirst("id")?.Value, out var userId);
+
+            var deleted = await _tutorialService.DeleteTutorialAsync(id, userId);
+            if (deleted)
+                return NoContent();
+            return NotFound();
+        }
         #endregion
 
         #region Categories

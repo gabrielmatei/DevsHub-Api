@@ -17,5 +17,6 @@ namespace DevsHub.Data
 
         public virtual UserProfile Profile { get; set; }
         public virtual ICollection<Contest> Contests { get; set; }
+        public virtual ICollection<Tutorial> Tutorials { get; set; }
     }
 }

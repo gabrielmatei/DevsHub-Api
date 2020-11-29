@@ -34,6 +34,12 @@
 
         public static class Tutorial
         {
+            public const string GetAll = Base + "/tutorials";
+            public const string Get = Base + "/tutorials/{id}";
+            public const string Create = Base + "/tutorials";
+            public const string Update = Base + "/tutorials/{id}";
+            public const string Delete = Base + "/tutorials/{id}";
+
             public static class Category
             {
                 public const string GetAll = Base + "/tutorials/categories";

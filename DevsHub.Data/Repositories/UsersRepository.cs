@@ -31,6 +31,7 @@ namespace DevsHub.Data.Repositories
             return await _dataContext.Users
                 .Include(u => u.Profile)
                 .Include(u => u.Contests)
+                .Include(u => u.Tutorials)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
     }

@@ -48,7 +48,7 @@ namespace DevsHub.Controllers.V1
 
         [Authorize(Roles = Role.Admin + "," + Role.Organizer)]
         [HttpPost(ApiRoutes.Contest.Create)]
-        [ProducesResponseType(typeof(ContestResponse), 201)]
+        [ProducesResponseType(typeof(ContestShortResponse), 201)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> CreateContest([FromBody] CreateOrUpdateContestRequest request)
         {
@@ -56,13 +56,13 @@ namespace DevsHub.Controllers.V1
 
             var createdContest = await _contestService.CreateContestAsync(userId, request);
             if (createdContest != null)
-                return Created(ApiHelper.GetResourceUri(HttpContext.Request, ApiRoutes.Contest.Get, createdContest.Id), _mapper.Map<ContestResponse>(createdContest));
+                return Created(ApiHelper.GetResourceUri(HttpContext.Request, ApiRoutes.Contest.Get, createdContest.Id), _mapper.Map<ContestShortResponse>(createdContest));
             return BadRequest();
         }
 
         [Authorize(Roles = Role.Admin + "," + Role.Organizer)]
         [HttpPut(ApiRoutes.Contest.Update)]
-        [ProducesResponseType(typeof(ContestResponse), 200)]
+        [ProducesResponseType(typeof(ContestShortResponse), 200)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> UpdateContest([FromRoute] Guid id, [FromBody] CreateOrUpdateContestRequest request)
         {
@@ -70,7 +70,7 @@ namespace DevsHub.Controllers.V1
 
             var updatedContest = await _contestService.UpdateContestAsync(id, userId, request);
             if (updatedContest != null)
-                return Ok(_mapper.Map<ContestResponse>(updatedContest));
+                return Ok(_mapper.Map<ContestShortResponse>(updatedContest));
             return NotFound();
         }
 

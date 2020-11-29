@@ -13,14 +13,19 @@ namespace DevsHub.MappingProfiles
             CreateMap<RegisterRequest, UserProfile>();
             CreateMap<UpdateAccountRequest, UserProfile>();
             #endregion
+
             #region Users
             CreateMap<UpdateUserRequest, User>();
             #endregion
+
             #region Contests
             CreateMap<CreateOrUpdateContestRequest, Contest>();
             #endregion
+
             #region Tutorials
+            CreateMap<CreateOrUpdateTutorialRequest, Tutorial>();
             #endregion
+
             #region Tutorial Categories
             CreateMap<CreateOrUpdateTutorialCategoryRequest, TutorialCategory>();
             #endregion

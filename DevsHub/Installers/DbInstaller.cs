@@ -20,6 +20,7 @@ namespace DevsHub.Installers
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IUserProfilesRepository, UserProfilesRepository>();
             services.AddScoped<IContestsRepository, ContestsRepository>();
+            services.AddScoped<ITutorialsRepository, TutorialsRepository>();
             services.AddScoped<ITutorialCategoriesRepository, TutorialCategoriesRepository>();
             #endregion
 

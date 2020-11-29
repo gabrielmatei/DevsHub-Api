@@ -4,6 +4,17 @@ using FluentValidation;
 namespace DevsHub.Validators
 {
     #region Tutorials
+    public class CreateOrUpdateTutorialRequestValidator : AbstractValidator<CreateOrUpdateTutorialRequest>
+    {
+        public CreateOrUpdateTutorialRequestValidator()
+        {
+            RuleFor(x => x.Title)
+              .NotEmpty()
+              .MaximumLength(150);
+            RuleFor(x => x.Content)
+              .NotEmpty();
+        }
+    }
     #endregion
 
     #region Categories
@@ -13,7 +24,7 @@ namespace DevsHub.Validators
         {
             RuleFor(x => x.Name)
               .NotEmpty()
-              .MaximumLength(50);
+              .MaximumLength(150);
         }
     }
     #endregion

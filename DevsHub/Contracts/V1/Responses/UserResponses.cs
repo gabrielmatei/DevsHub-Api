@@ -12,6 +12,7 @@ namespace DevsHub.Contracts.V1.Responses
         public DateTime UpdatedAt { get; set; }
         public UserProfileResponse Profile { get; set; }
         public List<ContestShortResponse> Contests { get; set; }
+        public List<TutorialShortResponse> Tutorials { get; set; }
     }
 
     public class UserShortResponse
