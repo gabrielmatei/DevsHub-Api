@@ -48,5 +48,13 @@
                 public const string Delete = Base + "/tutorials/categories/{id}";
             }
         }
+
+        public static class Announcement
+        {
+            public const string GetAll = Base + "/announcements";
+            public const string Create = Base + "/announcements";
+            public const string Update = Base + "/announcements/{id}";
+            public const string Delete = Base + "/announcements/{id}";
+        }
     }
 }

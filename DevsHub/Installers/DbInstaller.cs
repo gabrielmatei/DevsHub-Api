@@ -22,6 +22,7 @@ namespace DevsHub.Installers
             services.AddScoped<IContestsRepository, ContestsRepository>();
             services.AddScoped<ITutorialsRepository, TutorialsRepository>();
             services.AddScoped<ITutorialCategoriesRepository, TutorialCategoriesRepository>();
+            services.AddScoped<IAnnouncementsRepository, AnnouncementsRepository>();
             #endregion
 
             #region Services
@@ -29,6 +30,7 @@ namespace DevsHub.Installers
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IContestService, ContestService>();
             services.AddTransient<ITutorialService, TutorialService>();
+            services.AddTransient<IAnnouncementsService, AnnouncementsService>();
             #endregion
         }
     }
