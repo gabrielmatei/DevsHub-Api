@@ -17,10 +17,7 @@ namespace DevsHub.Installers
             {
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "DevsHub Api", Version = "v1" });
 
-                var security = new Dictionary<string, IEnumerable<string>>
-                {
-                    { "Bearer", new string[0] }
-                };
+                x.ExampleFilters();
 
                 x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
