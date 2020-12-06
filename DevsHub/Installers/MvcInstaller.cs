@@ -24,6 +24,16 @@ namespace DevsHub.Installers
                 options.SuppressModelStateInvalidFilter = true;
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                });
+            });
+
             services.AddControllers(options =>
             {
                 options.Filters.Add<ValidationFilter>();
