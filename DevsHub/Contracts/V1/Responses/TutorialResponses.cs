@@ -13,6 +13,7 @@ namespace DevsHub.Contracts.V1.Responses
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public List<TutorialCategoryResponse> Categories { get; set; }
     }
 
     public class TutorialShortResponse
@@ -23,6 +24,7 @@ namespace DevsHub.Contracts.V1.Responses
         public string Title { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public List<TutorialCategoryResponse> Categories { get; set; }
     }
 
     public class TutorialListResponse

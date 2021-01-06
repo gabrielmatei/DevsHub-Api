@@ -59,6 +59,12 @@ namespace DevsHub.Services
             tutorial.CreatedAt = DateTime.UtcNow;
             tutorial.UpdatedAt = DateTime.UtcNow;
 
+            foreach (var categoryId in request.Categories)
+            {
+                var category = await GetTutorialCategoryAsync(categoryId);
+                tutorial.Categories.Add(category);
+            };
+
             return await _tutorials.AddAsync(tutorial);
         }
 

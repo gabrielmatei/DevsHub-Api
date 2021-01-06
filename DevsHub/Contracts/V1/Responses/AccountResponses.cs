@@ -12,6 +12,7 @@ namespace DevsHub.Contracts.V1.Responses
     {
         public Guid Id { get; set; }
         public string Email { get; set; }
+        public string Role { get; set; }
         public UserProfileResponse Profile { get; set; }
         public List<ContestShortResponse> Contests { get; set; }
         public List<TutorialShortResponse> Tutorials { get; set; }

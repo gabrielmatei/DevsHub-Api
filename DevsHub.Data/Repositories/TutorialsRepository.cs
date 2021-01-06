@@ -22,6 +22,7 @@ namespace DevsHub.Data.Repositories
         public async Task<List<Tutorial>> GetTutorialsAsync()
         {
             return await _dataContext.Tutorials
+                .Include(t => t.Categories)
                 .Include(c => c.User).ThenInclude(u => u.Profile)
                 .ToListAsync();
         }
@@ -29,6 +30,7 @@ namespace DevsHub.Data.Repositories
         public async Task<Tutorial> GetTutorialAsync(Guid id)
         {
             return await _dataContext.Tutorials
+                .Include(t => t.Categories)
                 .Include(c => c.User).ThenInclude(u => u.Profile)
                 .SingleOrDefaultAsync(c => c.Id == id);
         }

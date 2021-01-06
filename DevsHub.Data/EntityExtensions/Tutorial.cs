@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DevsHub.Data
 {
@@ -9,6 +10,7 @@ namespace DevsHub.Data
             this.Title = entity.Title;
             this.Content = entity.Content;
             this.UpdatedAt = DateTime.UtcNow;
+            this.Categories = new List<TutorialCategory>();
         }
     }
 }

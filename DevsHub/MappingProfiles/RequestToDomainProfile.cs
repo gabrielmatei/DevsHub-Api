@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DevsHub.Contracts.V1.Requests;
 using DevsHub.Data;
+using System;
+using System.Collections.Generic;
 
 namespace DevsHub.MappingProfiles
 {
@@ -23,7 +25,8 @@ namespace DevsHub.MappingProfiles
             #endregion
 
             #region Tutorials
-            CreateMap<CreateOrUpdateTutorialRequest, Tutorial>();
+            CreateMap<CreateOrUpdateTutorialRequest, Tutorial>()
+                .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => new List<TutorialCategory>()));
             #endregion
 
             #region Tutorial Categories

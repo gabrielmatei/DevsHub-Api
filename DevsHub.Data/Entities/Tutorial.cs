@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,5 +17,6 @@ namespace DevsHub.Data
         public DateTime UpdatedAt { get; set; }
 
         public virtual User User { get; set; }
+        public ICollection<TutorialCategory> Categories { get; set; }
     }
 }
