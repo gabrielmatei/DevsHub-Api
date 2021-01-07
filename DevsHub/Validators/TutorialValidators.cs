@@ -1,4 +1,5 @@
 ﻿using DevsHub.Contracts.V1.Requests;
+using DevsHub.Helpers;
 using FluentValidation;
 
 namespace DevsHub.Validators
@@ -9,10 +10,10 @@ namespace DevsHub.Validators
         public CreateOrUpdateTutorialRequestValidator()
         {
             RuleFor(x => x.Title)
-              .NotEmpty()
-              .MaximumLength(150);
+              .NotEmpty().WithMessage(ValidationErrors.NotEmpty)
+              .MaximumLength(150).WithMessage(ValidationErrors.MaximumLength);
             RuleFor(x => x.Content)
-              .NotEmpty();
+              .NotEmpty().WithMessage(ValidationErrors.NotEmpty);
         }
     }
     #endregion
@@ -23,8 +24,8 @@ namespace DevsHub.Validators
         public UpdateTutorialCategoryRequestValidator()
         {
             RuleFor(x => x.Name)
-              .NotEmpty()
-              .MaximumLength(150);
+              .NotEmpty().WithMessage(ValidationErrors.NotEmpty)
+              .MaximumLength(150).WithMessage(ValidationErrors.MaximumLength);
         }
     }
     #endregion

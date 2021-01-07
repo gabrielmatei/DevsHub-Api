@@ -1,5 +1,8 @@
 ﻿using DevsHub.Contracts.V1.Requests;
+using DevsHub.Data;
+using DevsHub.Helpers;
 using FluentValidation;
+using System.Collections.Generic;
 
 namespace DevsHub.Validators
 {
@@ -7,7 +10,8 @@ namespace DevsHub.Validators
     {
         public UpdateUserRequestValidator()
         {
-            // TODO validate role
+            RuleFor(x => x.Role)
+                .Must(r => new List<string>(Role.Roles).Contains(r)).WithMessage(ValidationErrors.IsRole);
         }
     }
 }
